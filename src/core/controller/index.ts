@@ -1557,7 +1557,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 		console.log("addSelectedCodeToChat", code, filePath, languageId)
 	}
 
-	// 'Add File to Cline' context menu in explorer
+	// 'Add File to Cline' context menu and command palette
 	async addFileAsContext(filePath: string) {
 		await vscode.commands.executeCommand("claude-dev.SidebarProvider.focus")
 		await setTimeoutPromise(100)
