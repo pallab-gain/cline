@@ -1563,7 +1563,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 		await setTimeoutPromise(100)
 		const fileMention = this.getFileMentionFromPath(filePath)
 		await this.postMessageToWebview({
-			type: "addToInput",
+			type: "addFileMentionToInput",
 			text: fileMention,
 		})
 		return

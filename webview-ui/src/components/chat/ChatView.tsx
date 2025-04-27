@@ -498,6 +498,18 @@ const ChatView = ({ isHidden, showAnnouncement, hideAnnouncement, showHistoryVie
 						setSelectedImages((prevImages) => [...prevImages, ...newImages].slice(0, MAX_IMAGES_PER_MESSAGE))
 					}
 					break
+				case "addFileMentionToInput":
+					setInputValue((prevValue) => {
+						const newText = message.text ?? ""
+						const newTextWithSpace = newText + " "
+						return prevValue ? `${prevValue} ${newTextWithSpace}` : newTextWithSpace
+					})
+					setTimeout(() => {
+						if (textAreaRef.current) {
+							textAreaRef.current.focus()
+						}
+					}, 0)
+					break
 				case "addToInput":
 					setInputValue((prevValue) => {
 						const newText = message.text ?? ""
