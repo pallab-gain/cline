@@ -42,6 +42,7 @@ export interface ExtensionMessage {
 		| "userCreditsUsage"
 		| "userCreditsPayments"
 		| "totalTasksSize"
+		| "addFileMentionToInput"
 		| "addToInput"
 		| "browserConnectionResult"
 		| "scrollToSettings"
