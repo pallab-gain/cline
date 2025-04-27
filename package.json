@@ -44,6 +44,12 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"submenus": [
+			{
+				"id": "cline.submenu",
+				"label": "Cline"
+			}
+		],
 		"viewsContainers": {
 			"activitybar": [
 				{
@@ -118,6 +124,10 @@
 				"command": "cline.focusChatInput",
 				"title": "Jump to Chat Input",
 				"category": "Cline"
+			},
+			{
+				"command": "cline.addFileToChat",
+				"title": "Add File to Chat"
 			}
 		],
 		"keybindings": [
@@ -159,7 +169,7 @@
 				},
 				{
 					"command": "cline.settingsButtonClicked",
-					"group": "navigation@6",
+					"group": "navigation@1",
 					"when": "view == claude-dev.SidebarProvider"
 				}
 			],
@@ -200,12 +210,28 @@
 					"command": "cline.addToChat",
 					"group": "navigation",
 					"when": "editorHasSelection"
+				},
+				{
+					"submenu": "cline.submenu",
+					"group": "navigation@2",
+					"when": "editorTextFocus"
 				}
 			],
 			"terminal/context": [
 				{
 					"command": "cline.addTerminalOutputToChat",
 					"group": "navigation"
+				}
+			],
+			"explorer/context": [
+				{
+					"submenu": "cline.submenu",
+					"group": "4_workspace"
+				}
+			],
+			"cline.submenu": [
+				{
+					"command": "cline.addFileToChat"
 				}
 			]
 		},
