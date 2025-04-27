@@ -169,7 +169,7 @@
 				},
 				{
 					"command": "cline.settingsButtonClicked",
-					"group": "navigation@1",
+					"group": "navigation@6",
 					"when": "view == claude-dev.SidebarProvider"
 				}
 			],
