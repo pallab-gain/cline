@@ -282,7 +282,46 @@ export function activate(context: vscode.ExtensionContext) {
 			)
 		}),
 	)
+	context.subscriptions.push(
+		vscode.commands.registerCommand("cline.addFileToChat", async (fileUri?: vscode.Uri) => {
+			// If fileUri is not provided directly (e.g., when invoked from command palette),
+			// try to get it from the selected resource in explorer
+			if (!fileUri) {
+				const activeEditor = vscode.window.activeTextEditor
+				if (activeEditor) {
+					fileUri = activeEditor.document.uri
+				} else {
+					vscode.window.showErrorMessage("No file selected.")
+					return
+				}
+			}
 
+			try {
+				// Ensure the file exists and get its stats
+				const fileStat = await vscode.workspace.fs.stat(fileUri)
+
+				// Process differently based on whether it's a file or directory
+				if (fileStat.type === vscode.FileType.File) {
+					const visibleWebview = WebviewProvider.getVisibleInstance()
+					if (!visibleWebview) {
+						await vscode.commands.executeCommand("claude-dev.SidebarProvider.focus")
+						await setTimeoutPromise(100)
+					}
+
+					const refreshedWebview = WebviewProvider.getVisibleInstance()
+					if (refreshedWebview) {
+						await refreshedWebview.controller.addFileAsContext(fileUri.fsPath)
+					}
+				} else if (fileStat.type === vscode.FileType.Directory) {
+					vscode.window.showInformationMessage(
+						"Selected item is a directory. Adding directories as context is not supported directly.",
+					)
+				}
+			} catch (error) {
+				vscode.window.showErrorMessage("Failed to add file to Cline.")
+			}
+		}),
+	)
 	context.subscriptions.push(
 		vscode.commands.registerCommand("cline.addTerminalOutputToChat", async () => {
 			const terminal = vscode.window.activeTerminal

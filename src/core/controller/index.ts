@@ -1971,4 +1971,15 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			action: "chatButtonClicked",
 		})
 	}
+	// 'Add File to Cline' context menu in explorer
+	async addFileAsContext(filePath: string) {
+		await vscode.commands.executeCommand("claude-dev.SidebarProvider.focus")
+		await setTimeoutPromise(100)
+		const fileMention = this.getFileMentionFromPath(filePath)
+		await this.postMessageToWebview({
+			type: "addToInput",
+			text: fileMention,
+		})
+		return
+	}
 }
