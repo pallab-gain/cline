@@ -9,6 +9,8 @@ import { getRelativePaths } from "./getRelativePaths"
 import { openFile } from "./openFile"
 import { openImage } from "./openImage"
 import { searchCommits } from "./searchCommits"
+import { searchFiles } from "./searchFiles"
+import { selectImages } from "./selectImages"
 
 // Register all file service methods
 export function registerAllMethods(): void {
@@ -19,4 +21,6 @@ export function registerAllMethods(): void {
 	registerMethod("openFile", openFile)
 	registerMethod("openImage", openImage)
 	registerMethod("searchCommits", searchCommits)
+	registerMethod("searchFiles", searchFiles)
+	registerMethod("selectImages", selectImages)
 }
